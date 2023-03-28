@@ -1,5 +1,5 @@
 from telegram.ext import Updater, Filters, MessageHandler, CommandHandler
-from telegram import ReplyKeyboardMarkup
+from telegram import Bot, ReplyKeyboardMarkup
 import os
 import openai
 from dotenv import load_dotenv
