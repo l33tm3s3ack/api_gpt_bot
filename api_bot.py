@@ -112,7 +112,14 @@ def main():
     updater.dispatcher.add_handler(MessageHandler(
         Filters.text, input_analyzer
     ))
-    updater.start_polling()
+    updater.start_webhook(
+        listen='0.0.0.0',
+        port=8443,
+        secret_token=token,
+        key='private.key',
+        cert='cert.pem',
+        webhook_url='https://62.113.113.158:8443'
+    )
     updater.idle()
 
 
