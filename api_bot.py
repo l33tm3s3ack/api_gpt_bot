@@ -15,7 +15,7 @@ def start(update, context):
     text = '''Hi! I can send your messages to AI.
     Which AI do you want to talk to?'''
     buttons = ReplyKeyboardMarkup(
-        [['/gpt_turbo', '/code_davinci', '/text_davinci']]
+        [['/gpt_turbo', '/text_davinci']]
     )
     context.bot.send_message(chat_id=chat.id, text=text, reply_markup=buttons)
 
@@ -25,8 +25,7 @@ def choice_model(update, context):
     text = update.message.text
     model_list = {
         'gpt_turbo': 'gpt-3.5-turbo',
-        'code_davinci': 'text-davinci-003',
-        'text_davinci': 'code-davinci-002'
+        'text_davinci': 'text-davinci-003'
     }
     chosen_model = model_list[text[1:]]
     context.user_data['model'] = chosen_model
@@ -107,11 +106,12 @@ def main():
     updater = Updater(token=token)
     updater.dispatcher.add_handler(CommandHandler('start', start))
     updater.dispatcher.add_handler(CommandHandler(
-        ['gpt_turbo', 'code_davinci', 'text_davinci'], choice_model
+        ['gpt_turbo', 'text_davinci'], choice_model
     ))
     updater.dispatcher.add_handler(MessageHandler(
         Filters.text, input_analyzer
     ))
+#    updater.start_polling()
     updater.start_webhook(
         listen='0.0.0.0',
         port=8443,
